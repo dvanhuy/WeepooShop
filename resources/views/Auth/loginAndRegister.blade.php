@@ -10,8 +10,9 @@
 </head>
 
 <body>
-
-    <div class="container" id="container">
+<!-- {{ request()->is('register') ? 'active' : '' }} -->
+<!-- {{ Route::currentRouteName() == 'get_form_register' ? 'active' : ''  }} -->
+    <div class="container {{ Route::currentRouteName() == 'get_form_register' ? 'active' : ''  }}" id="container">
         <div class="form-container sign-up">
             <form>
                 <h1>Create Account</h1>
