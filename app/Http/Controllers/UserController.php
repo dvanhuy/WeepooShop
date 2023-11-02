@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -13,5 +15,16 @@ class UserController extends Controller
     public function getFormLogin()
     {
         return view("Auth.loginAndRegister");
+    }
+
+    public function login(LoginRequest $loginRequest)
+    {
+        if (Auth::attempt($loginRequest->validated())) {
+            $loginRequest->session()->regenerate();
+            return redirect()->view('welcome');
+        }
+        return redirect()->back()->with([
+            'fail' => 'Nhập sai email hoặc mật khẩu'
+        ]);
     }
 }

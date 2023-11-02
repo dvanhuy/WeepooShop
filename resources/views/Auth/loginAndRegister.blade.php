@@ -8,21 +8,28 @@
     <link rel="stylesheet" href="{{ asset('css/auth.css')}}">
     <title>Weepoo Shop Login</title>
 </head>
+<style>
+    .error{
+        color: red;
+        font-size: 11px;
+    }
+</style>
 
 <body>
 <!-- {{ request()->is('register') ? 'active' : '' }} -->
 <!-- {{ Route::currentRouteName() == 'get_form_register' ? 'active' : ''  }} -->
     <div class="container {{ Route::currentRouteName() == 'get_form_register' ? 'active' : ''  }}" id="container">
         <div class="form-container sign-up">
-            <form>
-                <h1>Create Account</h1>
+            <form action="{{ route('login') }}" method="post">
+                @csrf
+                <h1>Tạo tài khoản</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
-                <span>or use your email for registeration</span>
+                <span>hoặc sử dụng email của bạn để đăng ký</span>
                 <input type="text" placeholder="Name">
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
@@ -30,19 +37,29 @@
             </form>
         </div>
         <div class="form-container sign-in">
-            <form>
-                <h1>Sign In</h1>
+            <form action="{{ route('login') }}" method="post">
+                @csrf
+                <h1>Đăng nhập</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
-                <span>or use your email password</span>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                <span>hoặc đăng nhập tài khoản của bạn ở dưới</span>
+                <input type="text" name="email" placeholder="Email">
+                @error('email')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+                <input type="password" name="password" placeholder="Password">
+                @error('password')
+                    <div class="error">{{ $message }}</div>
+                @enderror
                 <a href="#">Forget Your Password?</a>
                 <button>Sign In</button>
+                @if(Session::has('fail'))
+                    <div class="error" style="margin-top: 10px; font-size: 13px;">{{ session::get('fail') }}</div>
+                @endif
             </form>
         </div>
         <div class="toggle-container">
