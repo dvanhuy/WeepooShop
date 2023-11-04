@@ -21,10 +21,21 @@ class UserController extends Controller
     {
         if (Auth::attempt($loginRequest->validated())) {
             $loginRequest->session()->regenerate();
-            return redirect()->view('welcome');
+            return redirect()->route('get_home_page');
         }
         return redirect()->back()->with([
             'fail' => 'Nhập sai email hoặc mật khẩu'
         ]);
+    }
+
+    public function getHomePage()
+    {
+        return view('homepage');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('welcome');
     }
 }

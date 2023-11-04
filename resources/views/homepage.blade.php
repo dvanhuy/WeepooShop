@@ -13,11 +13,11 @@
         </style>
     </head>
     <body class="antialiased">
+        <h2>homepage</h2>
         <div class="header" style="display: flex; gap: 20px;">
             <a href="{{ route('get_form_login') }}">Đăng nhập</a>
             <a href="{{ route('get_form_register') }}">Đăng kí</a>
-            <div>admin@gmail.com</div>
-            <div>12345</div>
+            <a href="{{ route('logout') }}">Đăng xuất</a>
         </div>
     </body>
 </html>

@@ -30,10 +30,10 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>hoặc sử dụng email của bạn để đăng ký</span>
-                <input type="text" placeholder="Name">
+                <input type="text" placeholder="Tên người dùng">
                 <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button>Sign Up</button>
+                <input type="password" placeholder="Mật khẩu">
+                <button>Đăng kí</button>
             </form>
         </div>
         <div class="form-container sign-in">
@@ -51,12 +51,12 @@
                 @error('email')
                     <div class="error">{{ $message }}</div>
                 @enderror
-                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Mật khẩu">
                 @error('password')
                     <div class="error">{{ $message }}</div>
                 @enderror
-                <a href="#">Forget Your Password?</a>
-                <button>Sign In</button>
+                <a href="#">Quên mật khẩu?</a>
+                <button>Đăng nhập</button>
                 @if(Session::has('fail'))
                     <div class="error" style="margin-top: 10px; font-size: 13px;">{{ session::get('fail') }}</div>
                 @endif
@@ -65,14 +65,14 @@
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
-                    <h1>Welcome Back!</h1>
-                    <p>Enter your personal details to use all of site features</p>
-                    <button class="hidden" id="login">Sign In</button>
+                    <h1>Chào mừng trở lại!</h1>
+                    <p>Nhập thông tin của bạn để sử dụng tất cả các tính năng của trang web</p>
+                    <button class="hidden" id="login">Đăng nhập</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Register with your personal details to use all of site features</p>
-                    <button class="hidden" id="register">Sign Up</button>
+                    <h1>Chào bạn!</h1>
+                    <p>Đăng ký với thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web</p>
+                    <button class="hidden" id="register">Đăng kí</button>
                 </div>
             </div>
         </div>
