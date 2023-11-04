@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,14 +18,18 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('login', [UserController::class,'getFormLogin'])->name('get_form_login');
-Route::post('login', [UserController::class,'login'])->name('login');
+Route::get('login', [AuthController::class,'getFormLogin'])->name('get_form_login');
+Route::post('login', [AuthController::class,'login'])->name('login');
 
-Route::get('register', [UserController::class,'getFormRegister'])->name('get_form_register');
+Route::get('register', [AuthController::class,'getFormRegister'])->name('get_form_register');
+Route::post('register', [AuthController::class,'register'])->name('register');
+
+Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);
+Route::get('/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
 
 
 Route::group(['middleware'=>'userLogin'],function (){
-    Route::get('logout', [UserController::class,'logout'])->name('logout'); 
-    Route::get('/', [UserController::class,'getHomePage']);
-    Route::get('/homepage', [UserController::class,'getHomePage'])->name('get_home_page');
+    Route::get('logout', [AuthController::class,'logout'])->name('logout'); 
+    Route::get('/', [AuthController::class,'getHomePage']);
+    Route::get('/homepage', [AuthController::class,'getHomePage'])->name('get_home_page');
 });

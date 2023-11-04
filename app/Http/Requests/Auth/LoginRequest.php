@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,10 +33,10 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'Bạn chưa điền email',
-            'password.required' => 'Bạn chưa điền mật khẩu',
             'email.max' => 'Email quá dài',
             'email.email' => 'Email phải có chứa dấu @',
             'email.min' => 'Email phải dài hơn 5 kí tự',
+            'password.required' => 'Bạn chưa điền mật khẩu',
             'password.min' => 'Mật khẩu phải dài hơn 5 kí tự',
         ];
     }

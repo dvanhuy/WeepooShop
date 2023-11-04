@@ -20,7 +20,7 @@
 <!-- {{ Route::currentRouteName() == 'get_form_register' ? 'active' : ''  }} -->
     <div class="container {{ Route::currentRouteName() == 'get_form_register' ? 'active' : ''  }}" id="container">
         <div class="form-container sign-up">
-            <form action="{{ route('login') }}" method="post">
+            <form action="{{ route('register') }}" method="post">
                 @csrf
                 <h1>Tạo tài khoản</h1>
                 <div class="social-icons">
@@ -30,10 +30,22 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>hoặc sử dụng email của bạn để đăng ký</span>
-                <input type="text" placeholder="Tên người dùng">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mật khẩu">
+                <input type="text" name="namereg" placeholder="Tên người dùng">
+                @error('namereg')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+                <input type="email" name="emailreg" placeholder="Email">
+                @error('emailreg')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+                <input type="password" name="passwordreg" placeholder="Mật khẩu">
+                @error('passwordreg')
+                    <div class="error">{{ $message }}</div>
+                @enderror
                 <button>Đăng kí</button>
+                @if(Session::has('fail'))
+                    <div class="error" style="margin-top: 10px; font-size: 13px;">{{ session::get('failreg') }}</div>
+                @endif
             </form>
         </div>
         <div class="form-container sign-in">
@@ -47,7 +59,7 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>hoặc đăng nhập tài khoản của bạn ở dưới</span>
-                <input type="text" name="email" placeholder="Email">
+                <input type="text" name="email" placeholder="Email" value="{{ session::get('emailfill') }}">
                 @error('email')
                     <div class="error">{{ $message }}</div>
                 @enderror

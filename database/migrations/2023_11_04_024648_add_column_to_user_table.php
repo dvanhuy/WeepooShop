@@ -17,6 +17,9 @@ return new class extends Migration
             //
             $table->string('phone')->nullable();
             $table->string('role')->nullable();
+            $table->string('social_id')->nullable();
+            $table->string('social_type')->nullable();
+            $table->string('avatar')->nullable();
             $table->softDeletes();
         });
     }
