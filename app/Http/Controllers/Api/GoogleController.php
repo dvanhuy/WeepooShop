@@ -4,57 +4,63 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    public function getGoogleSignInUrl()
+    public function callApiGoogle()
     {
-        try {
-            $url = Socialite::driver('google')->stateless()
-                ->redirect()->getTargetUrl();
-            return response()->json([
-                'url' => $url,
-            ])->setStatusCode(Response::HTTP_OK);
-        } catch (\Exception $exception) {
-            return $exception;
-        }
+        // try {
+        //     $url = Socialite::driver('google')->stateless()
+        //         ->redirect()->getTargetUrl();
+        //     return response()->json([
+        //         'url' => $url,
+        //     ])->setStatusCode(Response::HTTP_OK);
+        // } catch (\Exception $exception) {
+        //     return $exception;
+        // }
+        return Socialite::driver('google')->redirect();
     }
 
     public function loginCallback(Request $request)
     {
         try {
-            $state = $request->input('state');
+            $googleUser = Socialite::driver('google')->user();
+            // dd($googleUser);
+            $existingUser = User::where('email', $googleUser->email)->first();
+            if ($existingUser) {
+                // đã tồn tại trong hệ thống -> đăng nhập vô
+                Auth::login($existingUser, true);
+                return redirect()->route('get_home_page');
+            };
+            //chưa vô lần nào -> tạo acc
 
-            parse_str($state, $result);
-            $googleUser = Socialite::driver('google')->stateless()->user();
+            $userinfor = [
+                'email' => $googleUser->email,
+                'name' => $googleUser->name,
+                'social_id'=> $googleUser->id,
+                'social_type' => 'google',
+                'avatar' => $googleUser->avatar,
+            ];
 
-            $user = User::where('email', $googleUser->email)->first();
+            $user = User::create($userinfor);
             if ($user) {
-                throw new \Exception(__('google sign in email existed'));
+                Auth::login($existingUser, true);
+                return redirect()->route('get_home_page');
             }
-            $user = User::create(
-                [
-                    'email' => $googleUser->email,
-                    'name' => $googleUser->name,
-                    'social_id'=> $googleUser->id,
-                    'social_type'=> 'google',
-                    'password'=> '12345',
-                ]
-            );
-            return response()->json([
-                'status' => __('google sign in successful'),
-                'data' => $user,
-            ], Response::HTTP_CREATED);
+
+            return redirect()->back()->with([
+                'fail' => 'Có lỗi khi đăng nhập bằng google',
+                'failreg' => 'Có lỗi khi đăng kí bằng google'
+            ]);
 
         } catch (\Exception $exception) {
-            return response()->json([
-                'status' => __('google sign in failed'),
-                'error' => $exception,
-                'message' => $exception->getMessage()
-            ], Response::HTTP_BAD_REQUEST);
+            return redirect("/login")->with([
+                'fail' => 'Có lỗi khi đăng nhập bằng google',
+                'failreg' => 'Có lỗi khi đăng kí bằng google'
+            ]);
         }
     }
 }

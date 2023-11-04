@@ -48,7 +48,7 @@ class AuthController extends Controller
         }
 
         return redirect()->back()->with([
-            'failreg' => 'Có lỗi khi tạo tài khoảng'
+            'failreg' => 'Có lỗi khi tạo tài khoản'
         ]);
     }
 

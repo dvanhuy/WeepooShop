@@ -24,8 +24,8 @@ Route::post('login', [AuthController::class,'login'])->name('login');
 Route::get('register', [AuthController::class,'getFormRegister'])->name('get_form_register');
 Route::post('register', [AuthController::class,'register'])->name('register');
 
-Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);
-Route::get('/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
+Route::get('/api/google', [\App\Http\Controllers\Api\GoogleController::class, 'callApiGoogle']);
+Route::get('/api/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
 
 
 Route::group(['middleware'=>'userLogin'],function (){
