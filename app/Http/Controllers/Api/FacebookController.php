@@ -13,7 +13,10 @@ class FacebookController extends Controller
     //
     public function callApiFacebook()
     {
-        return Socialite::driver('facebook')->redirect();
+        // return Socialite::driver('facebook')->redirect();
+        return redirect("/login")->with([
+            'fail' => 'Tính năng đăng nhập bằng fb cần xác minh doanh nghiệp 😢😢😢😢',
+        ]);
     }
 
     public function loginFacebookCallback()
