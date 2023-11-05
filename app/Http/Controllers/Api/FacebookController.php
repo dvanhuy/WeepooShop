@@ -40,7 +40,6 @@ class FacebookController extends Controller
             $user = User::create($userinfor);
             if ($user) {
                 Auth::login($user, true);
-                dd($user);
                 return redirect()->route('get_home_page');
             }
 

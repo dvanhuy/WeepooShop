@@ -19,5 +19,7 @@
             <a href="{{ route('get_form_register') }}">Đăng kí</a>
             <a href="{{ route('logout') }}">Đăng xuất</a>
         </div>
+        <br>
+        <div>Tên của bạn là : {{$name}}</div>
     </body>
 </html>

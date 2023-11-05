@@ -48,7 +48,7 @@ class GoogleController extends Controller
 
         } catch (\Exception $exception) {
             return redirect("/login")->with([
-                'fail' => 'Có lỗi '.$exception,
+                'fail' => 'Có lỗi, vui lòng đợi vài phút để thực hiện lại',
             ]);
         }
     }

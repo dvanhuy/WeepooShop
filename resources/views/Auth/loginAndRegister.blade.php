@@ -29,7 +29,7 @@
                     <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div> -->
-                <span>hoặc sử dụng email của bạn để đăng ký</span>
+                <span style="padding-top: 20px;">Sử dụng email của bạn để đăng ký</span>
                 <input type="text" name="namereg" placeholder="Tên người dùng">
                 @error('namereg')
                     <div class="error">{{ $message }}</div>
