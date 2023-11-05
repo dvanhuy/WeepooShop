@@ -208,3 +208,8 @@ body{
 .container.active .toggle-right{
     transform: translateX(200%);
 }
+
+.social-icons a:hover{
+    background-color: rgb(52, 52, 52);
+    color: white;
+}

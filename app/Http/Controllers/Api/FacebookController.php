@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-class GoogleController extends Controller
+class FacebookController extends Controller
 {
-    public function callApiGoogle()
+    //
+    public function callApiFacebook()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('facebook')->redirect();
     }
 
-    public function loginGoogleCallback(Request $request)
+    public function loginFacebookCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $facebookUser = Socialite::driver('facebook')->user();
             // dd($googleUser);
-            $existingUser = User::where('email', $googleUser->email)->first();
+            $existingUser = User::where('email', $facebookUser->email)->first();
             if ($existingUser) {
                 // đã tồn tại trong hệ thống -> đăng nhập vô
                 Auth::login($existingUser, true);
@@ -28,22 +29,23 @@ class GoogleController extends Controller
             };
             //chưa vô lần nào -> tạo acc
             $userinfor = [
-                'email' => $googleUser->email,
-                'name' => $googleUser->name,
-                'social_id'=> $googleUser->id,
-                'social_type' => 'google',
-                'password' => bcrypt($googleUser->id),
-                'avatar' => $googleUser->avatar,
+                'email' => $facebookUser->email,
+                'name' => $facebookUser->name,
+                'social_id'=> $facebookUser->id,
+                'social_type' => 'facebook',
+                'password' => bcrypt($facebookUser->id),
+                'avatar' => $facebookUser->avatar,
             ];
 
             $user = User::create($userinfor);
             if ($user) {
                 Auth::login($user, true);
+                dd($user);
                 return redirect()->route('get_home_page');
             }
 
             return redirect()->back()->with([
-                'fail' => 'Có lỗi khi đăng nhập bằng google',
+                'fail' => 'Có lỗi khi đăng nhập bằng facebook',
             ]);
 
         } catch (\Exception $exception) {

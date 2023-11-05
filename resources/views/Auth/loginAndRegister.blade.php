@@ -23,12 +23,12 @@
             <form action="{{ route('register') }}" method="post">
                 @csrf
                 <h1>Tạo tài khoản</h1>
-                <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                <!-- <div class="social-icons">
+                    <a href="{{ route('login_with_google') }}" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="{{ route('login_with_facebook') }}" class="icon"><i class="fa-brands fa-facebook-f"></i></a>   
                     <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
-                </div>
+                </div> -->
                 <span>hoặc sử dụng email của bạn để đăng ký</span>
                 <input type="text" name="namereg" placeholder="Tên người dùng">
                 @error('namereg')
@@ -53,10 +53,10 @@
                 @csrf
                 <h1>Đăng nhập</h1>
                 <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="{{ route('login_with_google') }}" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="{{ route('login_with_facebook') }}" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <!-- <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a> -->
                 </div>
                 <span>hoặc đăng nhập tài khoản của bạn ở dưới</span>
                 <input type="text" name="email" placeholder="Email" value="{{ session::get('emailfill') }}">

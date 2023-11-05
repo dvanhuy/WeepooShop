@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\FacebookController;
+use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +26,11 @@ Route::post('login', [AuthController::class,'login'])->name('login');
 Route::get('register', [AuthController::class,'getFormRegister'])->name('get_form_register');
 Route::post('register', [AuthController::class,'register'])->name('register');
 
-Route::get('/api/google', [\App\Http\Controllers\Api\GoogleController::class, 'callApiGoogle']);
-Route::get('/api/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
+Route::get('/api/google', [GoogleController::class, 'callApiGoogle'])->name("login_with_google");
+Route::get('/api/google/callback', [GoogleController::class, 'loginGoogleCallback']);
+
+Route::get('/api/facebook', [FacebookController::class, 'callApiFacebook'])->name("login_with_facebook");
+Route::get('/api/facebook/callback', [FacebookController::class, 'loginFacebookCallback']);
 
 
 Route::group(['middleware'=>'userLogin'],function (){
