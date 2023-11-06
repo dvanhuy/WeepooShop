@@ -15,11 +15,12 @@
     <body class="antialiased">
         <h2>homepage</h2>
         <div class="header" style="display: flex; gap: 20px;">
-            <a href="{{ route('get_form_login') }}">Đăng nhập</a>
-            <a href="{{ route('get_form_register') }}">Đăng kí</a>
             <a href="{{ route('logout') }}">Đăng xuất</a>
         </div>
         <br>
         <div>Tên của bạn là : {{$name}}</div>
+        <div>banner</div>
+        <div>demo</div>
+        <a href="{{ route('get_list_figure') }}">Xem danh sách đầy đủ</a>
     </body>
 </html>
