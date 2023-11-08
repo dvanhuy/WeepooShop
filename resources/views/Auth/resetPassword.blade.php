@@ -18,11 +18,12 @@
 <body>
     <div class="container" id="container" style="display: flex;justify-content: center;">
         <div class="form-container">
-            <form action="{{ route('fgpassword') }}" method="post">
+            <form action="{{ route('reset_password') }}" method="post">
+                @method('PUT')
                 @csrf
                 <h1 style="margin-bottom: 20px;">Đặt lại mật khẩu</h1>
                 <span >Nhập email của bạn để lấy lại mật khẩu</span>
-                <input type="text" name="email" placeholder="Email" value="{{ session('emailfill') }}">
+                <input type="text" name="email" placeholder="Email" value="{{ $emailfill }}">
                 @error('email')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -35,9 +36,10 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
                 <button>Xác nhận</button>
-                @if(Session::has('fail'))
-                    <div class="error" style="margin-top: 10px; font-size: 13px;">{{ session('fail') }}</div>
+                @if(Session::has('status'))
+                    <div class="error" style="margin-top: 10px; font-size: 13px;">{{ session('status') }}</div>
                 @endif
+                <input type="hidden" name="tokenreset" value="{{ $token }}">
                 <a href="{{ route('get_form_login') }}">Trờ về đăng nhập</a>
             </form>
         </div>
