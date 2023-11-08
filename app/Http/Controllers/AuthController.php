@@ -6,7 +6,9 @@ use App\Http\Requests\Auth\ForgotPassRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -79,12 +81,29 @@ class AuthController extends Controller
         return view('Auth.forgotPassword');
     }
 
+    protected function buildMailMessage($url)
+    {
+        return (new MailMessage)
+            ->subject('Yêu cầu đặt lại mật khẩu')
+            ->line('Bạn nhận được email này vì một yêu cầu đặt lại mqật khẩu đã được gửi tới tài khoản của bạn.')
+            ->action('Đặt lại mật khẩu', $url)
+            ->line('Nếu bạn không thực hiện yêu cầu này, bạn có thể bỏ qua email này.')
+            ->salutation('Trân trọng, ' . config('app.name'));
+    }
+
     public function sendMailResetPass(ForgotPassRequest $request){
         $user_email = $request->validated();
         $user = User::where('email',$user_email) -> first();
-        if($user->email_verified_at){
-            return redirect()->route('welcome');
+        if(!$user->email_verified_at){
+            //email chưa được xác nhận
+            return redirect()->back()->with('fail','Email chưa được xác nhận');
         };
-        return redirect()->back()->with('fail','Email chưa được xác nhận');
+        Password::sendResetLink($user_email);
+        return redirect()->back()->with('fail','đã gửi');
+    }
+
+    public function resetpassword()
+    {
+        return view('Auth.resetPassword');
     }
 }
