@@ -1,6 +1,83 @@
-main{
-    position: relative;
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+*{
+    margin: 0;
+    padding: 0;
 }
+header{
+    position: relative;
+    text-align: center;
+}
+header .logo{
+    padding: 20px;
+    position: relative;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+header .user_avatar{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+}
+.search_box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+    background-color: rgb(244, 244, 244);
+    border-radius: 30px;
+    padding-left: 20px;
+    overflow: hidden;
+}
+
+.search_box input[type=text]{
+    width: 100%;
+    height: 35px;
+    min-width: 300px;
+    outline: none;
+    box-sizing: border-box;
+    border: none;
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: transparent;
+    font-family: 'Varela Round', sans-serif;
+}
+.search_box input[type=submit]{
+    height: 100%;
+    width: 100px;
+    background-color: transparent;
+    border: none;
+    padding: 15px 10px;
+    font-family: 'Varela Round', sans-serif;
+    border-left: 1px solid rgb(168, 168, 168);
+    font-size: 15px;
+}
+
+.search_box input[type=submit]:hover{
+    background-color: rgb(86, 179, 229);
+    color: white;
+}
+
+main{
+    background-color: rgb(244, 244, 244);
+    position: relative;
+    margin-top: 20px;
+}
+
+.header_main > a {
+    color: black;
+}
+
 .header_name_title{
     position: relative;
     margin-top: 30px;
@@ -12,6 +89,7 @@ main{
     height: 40px;
     box-sizing: border-box;
     line-height: 40px;
+    cursor: pointer;
 }
 .header_name_titlesub{
     position: relative;
@@ -25,6 +103,7 @@ main{
     padding-left: 20px;
     display: inline-block;
     line-height: 40px;
+    cursor: pointer;
 }
 .header_name_titlesub::after{
     position: absolute;
@@ -129,9 +208,11 @@ main{
     overflow: hidden;
     padding-bottom: 10px;
     cursor: pointer;
+    transition: transform .2s;
 }
 .container_main_item:hover{
     box-shadow: rgba(66, 66, 68, 0.2) 0px 7px 29px 0px;
+    transform: scale(1.1);
 }
 .container_main_item .item_image{
     overflow: hidden;

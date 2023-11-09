@@ -50,5 +50,9 @@ Route::group(['middleware'=>'userLogin'],function (){
     Route::get('logout', [AuthController::class,'logout'])->name('logout'); 
     Route::get('/', [AuthController::class,'getHomePage']);
     Route::get('/homepage', [AuthController::class,'getHomePage'])->name('get_home_page');
-    Route::get('/get-figure', [FigureController::class,'getAllFigure'])->name('get_list_figure');
+});
+
+Route::group(["prefix"=> "figures"], function () {
+    Route::get('', [FigureController::class, 'index'])->name("figures.index");
+    Route::get('/{figureID}',[FigureController::class, 'showDetail'])->name('customers.showdetail');
 });

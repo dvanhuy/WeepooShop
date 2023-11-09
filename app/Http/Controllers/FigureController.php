@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Figure;
 use Illuminate\Http\Request;
 
 class FigureController extends Controller
 {
     //
-    public function getAllFigure()
+    public function index()
     {
-        return view("Figure.get_list");
+        //30 hàng mới nhất
+        $figure36row = Figure::limit(30)->orderBy("created_at","desc")->get();
+        return view("Figure.get_list",["figures"=>$figure36row]);
+    }
+
+    public function show(Figure $figureID)
+    {
+        //model binding
+        return view('Customer.detail',['figure'=> $figureID]);
     }
 }
