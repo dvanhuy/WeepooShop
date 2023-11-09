@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('nha_sx')->nullable();
             $table->string('chieu_cao')->nullable();
             $table->string('chieu_rong')->nullable();
+            $table->string('chieu_dai')->nullable();
             $table->string('chat_lieu')->nullable();
             $table->text('mo_ta')->nullable();
             $table->string('hinh_anh')->nullable();

@@ -17,6 +17,7 @@ class Figure extends Model
         'nha_sx',
         'chieu_cao',
         'chieu_rong',
+        'chieu_dai',
         'chat_lieu',
         'mo_ta',
         'hinh_anh',

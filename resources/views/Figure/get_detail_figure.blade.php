@@ -58,7 +58,16 @@
                 </div>
             </div>
             
-            <h2></h2>
+            <h2>ten  => {{ $figure->ten }}</h2>
+            <h2>gia  => {{ $figure->gia }}</h2>
+            <h2>so_luong_hien_con  => {{ $figure->so_luong_hien_con }}</h2>
+            <h2>so_luong_da_ban  => {{ $figure->so_luong_da_ban }}</h2>
+            <h2>nha_sx  => {{ $figure->nha_sx }}</h2>
+            <h2>chieu_cao  => {{ $figure->chieu_cao }}</h2>
+            <h2>chieu_rong  => {{ $figure->chieu_rong }}</h2>
+            <h2>chieu_dai  => {{ $figure->chieu_dai }}</h2>
+            <h2>mo_ta => {{ $figure->mo_ta }}</h2>
+            <h2>hinh_anh  => {{ $figure->hinh_anh }}</h2>
         </main>
     </main>
 </body>

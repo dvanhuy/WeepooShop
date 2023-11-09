@@ -54,5 +54,5 @@ Route::group(['middleware'=>'userLogin'],function (){
 
 Route::group(["prefix"=> "figures"], function () {
     Route::get('', [FigureController::class, 'index'])->name("figures.index");
-    Route::get('/{figureID}',[FigureController::class, 'showDetail'])->name('customers.showdetail');
+    Route::get('/{figureID}',[FigureController::class, 'showDetail'])->name('figures.showdetail');
 });

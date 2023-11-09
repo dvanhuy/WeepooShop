@@ -15,9 +15,9 @@ class FigureController extends Controller
         return view("Figure.get_list",["figures"=>$figure36row]);
     }
 
-    public function show(Figure $figureID)
+    public function showDetail(Figure $figureID)
     {
         //model binding
-        return view('Customer.detail',['figure'=> $figureID]);
+        return view('Figure.get_detail_figure',['figure'=> $figureID]);
     }
 }

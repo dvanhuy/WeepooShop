@@ -3,6 +3,9 @@
     margin: 0;
     padding: 0;
 }
+a{
+    text-decoration: none;
+}
 header{
     position: relative;
     text-align: center;
@@ -197,6 +200,12 @@ main{
     grid-template-columns: repeat(6,1fr);
 }
 
+@media (max-width: 1000px) {
+    .container_main{
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+
 .container_main_item{
     width: 100%;
     background-color: white;
@@ -231,6 +240,7 @@ main{
     text-align: justify;
     padding-left: 20px;
     padding-right: 20px;
+    color: black;
 }
 
 .container_main_item .item_price{

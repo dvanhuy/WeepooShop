@@ -53,20 +53,20 @@
             </div>
             <div class="container_main">
                 @foreach($figures as $figure)
-                    <div class="container_main_item">
-                        <div class="item_image">
-                            <img src="{{$figure->hinh_anh}}">
-                        </div>
-                        <div class="item_name">
-                            {{$figure->ten}}
-                        </div>
-                        <div class="item_price">
-                            {{ number_format($figure->gia, 0, ',', '.') }} VNĐ
-                        </div>
-                        <div class="item_subprice">
-                            {{$figure->created_at}}
-                        </div>
+                <a class="container_main_item" href="{{ route('figures.showdetail',$figure->id) }}">
+                    <div class="item_image">
+                        <img src="{{$figure->hinh_anh}}">
                     </div>
+                    <div class="item_name">
+                        {{$figure->ten}}
+                    </div>
+                    <div class="item_price">
+                        {{ number_format($figure->gia, 0, ',', '.') }} VNĐ
+                    </div>
+                    <div class="item_subprice">
+                        {{$figure->created_at}}
+                    </div>
+                </a>
                 @endforeach
             </div>
             <div class="footer_main">
