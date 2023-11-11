@@ -13,3 +13,6 @@ mix.styles([
 mix.styles([
     'resources/css/Figure/get_detail_figure.css',
 ],"public/css/get_detail_figure.css");
+mix.styles([
+    'resources/css/Cart/get_list_cart.css',
+],"public/css/get_list_cart.css");
