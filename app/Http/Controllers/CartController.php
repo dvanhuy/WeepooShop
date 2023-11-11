@@ -13,19 +13,24 @@ class CartController extends Controller
     {
         return view("Cart.get_list_cart");
     }
-    public function add(Request $request){
-        $token = $request->_token;
+    public function add(AddCardRequest $request){
         // Xử lý dữ liệu
-        Cart::create([
-            'id_user'  => $token,
-            'id_figure'=> $token,
-            'so_luong' => "1",
-        ]);
+        $existsCart = Cart::where('id_user', $request->id_user)
+            ->where('id_figure',  $request->id_figure)
+            ->get();
+        if($existsCart->count() == 0)
+        {
+            Cart::create($request->validated());
+            return response()->json([
+                'success' => true,
+                'message' => 'Đã thêm sản phẩm vào giỏ hàng'
+            ]);
+        };
 
         // Trả về kết quả
         return response()->json([
-            'success' => true,
-            'message' => 'Đã thêm sản phẩm vào giỏ hàng'
+            'success' => false,
+            'message' => 'Đã tồn tại trong giỏ hàng'
         ]);
     }
 }

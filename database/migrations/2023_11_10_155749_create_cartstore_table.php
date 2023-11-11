@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cartstore', function (Blueprint $table) {
+            $table->id();
             $table->string('id_user');
             $table->string('id_figure');
             $table->string('so_luong');

@@ -243,4 +243,10 @@ a.cart:hover{
     margin-right: 10px;
 }
 
+.numberinfo{
+    display: flex;
+    gap: 40px;
+    margin-top: 5px;
+    color: #2b2b2b;
+}
 

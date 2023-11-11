@@ -61,6 +61,10 @@
         <div class="right">
             <div class="name">{{ $figure->ten }}</div>
             <div class="producer">{{ $figure->nha_sx }}</div>
+            <div class="numberinfo">
+                <div>Đã bán : {{ $figure->so_luong_da_ban }}</div>
+                <div>Hiện còn : {{ $figure->so_luong_hien_con }}</div>
+            </div>
             <div class="price">{{ number_format($figure->gia, 0, ',', '.') }} VNĐ</div>
             <div class="size">
                 <div class="size-title">Kích thước :</div>
@@ -99,28 +103,37 @@
             numberproduct.value = parseInt(numberproduct.value) + 1;
         }
         function addcart(){
-            const x = "{{ csrf_token() }}";
-            console.log(x);
-            const id_user="121233"
-            const id_figure ="121233"
-            const so_luong="121233"
-            $.ajax({
-                url: "{{ route('cart.add') }}",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "id_user": id_user,
-                    "id_figure": id_figure,
-                    "so_luong": so_luong,
-                },
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(thrownError);
-                }
-            });
+            if ("{{ Auth::check() }}"){
+                const id_user="{{ Auth::id() }}"
+                const id_figure ="{{ $figure->id }}"
+                const so_luong=document.querySelector('.numberinput').value
+                $.ajax({
+                    url: "{{ route('cart.add') }}",
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "id_user": id_user,
+                        "id_figure": id_figure,
+                        "so_luong": so_luong,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            // Xử lý thành công
+                            alert(data.message);
+                        } else {
+                            // Xử lý thất bại
+                            alert(data.message);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(thrownError);
+                    }
+                });
+            }
+            else{
+                window.location.href = "{{ route('get_form_login') }}";
+            }
         }
     </script>
 </body>
