@@ -4,6 +4,10 @@ const mix = require('laravel-mix')
 //     .postCss('resources/css/app.css', 'public/css');
 
 mix.styles([
+    'resources/css/header.css',
+],"public/css/header.css");
+
+mix.styles([
     'resources/css/Auth/login.css',
 ],"public/css/auth.css");
 
@@ -18,5 +22,5 @@ mix.styles([
 ],"public/css/get_list_cart.css");
 
 mix.styles([
-    'resources/css/header.css',
-],"public/css/header.css");
+    'resources/css/Admin/manageUsers.css',
+],"public/css/manageUsers.css");

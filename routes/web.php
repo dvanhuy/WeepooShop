@@ -65,8 +65,8 @@ Route::group(['middleware'=>'userLogin'],function (){
     });
     Route::group(['middleware'=>'isAdminRole'],function (){
         Route::group(['prefix'=> 'manage'], function () {
-            Route::get('figure', [AdminController::class,'getFiguresForm'])->name('manage.get_figures_form');
-            Route::get('user', [AdminController::class,'getUsersForm'])->name('manage.get_users_form');
+            Route::get('figures', [AdminController::class,'getFiguresForm'])->name('manage.get_figures_form');
+            Route::get('users', [AdminController::class,'getUsersForm'])->name('manage.get_users_form');
         });
     });
 });
