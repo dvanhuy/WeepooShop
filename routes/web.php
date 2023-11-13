@@ -64,8 +64,11 @@ Route::group(['middleware'=>'userLogin'],function (){
         Route::get('delete/{cart_id}', [CartController::class,'delete'])->name('cart.delete');
     });
     Route::group(['middleware'=>'isAdminRole'],function (){
-        Route::group(['prefix'=> 'manage'], function () {
-            Route::get('figures', [AdminController::class,'getFiguresForm'])->name('manage.get_figures_form');
+        Route::group(['prefix'=> 'manage/figures'], function () {
+            Route::get('', [AdminController::class,'getFiguresForm'])->name('manage.get_figures_form');
+            Route::get('add', [FigureController::class,'getFormAddFigure'])->name('figures.get_form_add');
+        });
+        Route::group(['prefix'=> 'manage/users'], function () {
             Route::get('users', [AdminController::class,'getUsersForm'])->name('manage.get_users_form');
         });
     });

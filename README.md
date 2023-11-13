@@ -29,3 +29,7 @@ các câu lệnh khác
 composer require laravel/socialite      -> tải socialite
 
 npm run dev                             -> cập nhật css
+
+npm run watch                           -> theo dõi css
+
+

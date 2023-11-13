@@ -20,4 +20,8 @@ class FigureController extends Controller
         //model binding
         return view('Figure.get_detail_figure',['figure'=> $figureID]);
     }
+    public function getFormAddFigure(Request $request)
+    {
+        return view('Figure.add_figure');
+    }
 }

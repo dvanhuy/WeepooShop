@@ -22,5 +22,9 @@ mix.styles([
 ],"public/css/get_list_cart.css");
 
 mix.styles([
-    'resources/css/Admin/manageUsers.css',
-],"public/css/manageUsers.css");
+    'resources/css/Admin/manage_page.css',
+],"public/css/manage_page.css");
+
+mix.styles([
+    'resources/css/Figure/add_figure.css',
+],"public/css/add_figure.css");

@@ -15,6 +15,7 @@ nav{
     align-items: center;
     justify-content: space-between;
     padding: 20px 8%;
+    background-color: white;
 }
 nav .logo{
     font-size: 32px;

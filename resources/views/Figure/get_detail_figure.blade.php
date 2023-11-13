@@ -47,9 +47,9 @@
             </div>
             <div class="price">{{ number_format($figure->gia, 0, ',', '.') }} VNĐ</div>
             <div class="size">
-                <div class="size-title">Kích thước :</div>
+                <div class="size-title">Kích thước (cm) :</div>
                 <div class="height">
-                    Cao : {{ $figure->chieu_cao }}
+                    Cao : {{ $figure->chieu_cao }} 
                 </div>
                 <div class="area">
                     Dài × Rộng : {{ $figure->chieu_dai }} × {{ $figure->chieu_rong }}
