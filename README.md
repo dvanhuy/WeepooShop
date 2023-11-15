@@ -32,4 +32,9 @@ npm run dev                             -> cập nhật css
 
 npm run watch                           -> theo dõi css
 
-
+php artisan storage:make
+php artisan storage:link
+app/Console/Commands/StorageLinkCommand.php
+E:\Laravel\WeepooShop\config\filesystems.php
+vendor\laravel\framework\src\Illuminate\Foundation\Console\StorageLinkCommand.php
+rm public/storage

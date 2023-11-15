@@ -34,7 +34,7 @@
     <div class="flex-box">
         <div class="left">
             <div class="big-img">
-                <img src="{{ $figure->hinh_anh }}" onerror="errorImg(event)">
+                <img src="{{ asset($figure->hinh_anh) }}" onerror="errorImg(event)" >
             </div>
         </div>
 
@@ -74,8 +74,8 @@
 
     <script>
         function errorImg(event){
-            event.target.src = ''
-            console.log();
+            event.target.src = "{{ asset('images/emptyFigure.webp')}}"
+            console.log("lỗi lấy ảnh");
         }
         const numberproduct = document.querySelector('.numberinput');
         function minus(){

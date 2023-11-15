@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Figure\AddFigureRequest;
 use App\Models\Figure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FigureController extends Controller
 {
@@ -28,12 +29,13 @@ class FigureController extends Controller
 
     public function addFigure(AddFigureRequest $request)
     {
-        $image = $request->file('hinh_anh');
-        $filename = $image->hashName();
-        $image->storeAs('uploads/', $filename);
-
         $figure = $request->validated();
-        $figure['hinh_anh']="storage/app/uploads/".$filename;
+        if ($request->hasFile('hinh_anh')) {
+            $path = Storage::disk('public')->put("images", $request->file('hinh_anh'));
+            $figure['hinh_anh']='storage/'.$path;
+        } else {
+            $figure['hinh_anh']='images/emptyFigure.webp';
+        }
         $status = Figure::create($figure);
         if ($status) {
             return redirect()->back()->with([

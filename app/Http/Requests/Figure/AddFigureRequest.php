@@ -27,7 +27,7 @@ class AddFigureRequest extends FormRequest
             "ten"=> ["required","max:255"],
             "gia"=> ["required","numeric","digits_between:1,30"],
             "so_luong_hien_con"=> ["required","numeric","digits_between:1,10"],
-            "so_luong_da_ban"=> ['nullable',"max:255","numeric"],
+            "so_luong_da_ban"=> ['nullable',"digits_between:1,10","numeric"],
             "nha_sx"=> ['nullable',"max:255"],
             "chieu_cao"=> ['nullable',"numeric","digits_between:1,10"],
             "chieu_rong"=> ['nullable',"numeric","digits_between:1,10"],

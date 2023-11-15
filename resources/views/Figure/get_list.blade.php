@@ -54,7 +54,7 @@
             @foreach($figures as $figure)
             <a class="container_main_item" href="{{ route('figures.showdetail',$figure->id) }}">
                 <div class="item_image">
-                    <img src="{{$figure->hinh_anh}}">
+                    <img src="{{asset($figure->hinh_anh)}}" onerror="errorImg(event)">
                 </div>
                 <div class="item_name">
                     {{$figure->ten}}
@@ -82,4 +82,10 @@
         </div>
     </main>
 </body>
+<script>
+    function errorImg(event){
+        event.target.src = "{{ asset('images/emptyFigure.webp')}}"
+        console.log("lỗi lấy ảnh");
+    }
+</script>
 </html>
