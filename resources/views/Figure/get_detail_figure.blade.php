@@ -34,7 +34,7 @@
     <div class="flex-box">
         <div class="left">
             <div class="big-img">
-                <img src="{{ $figure->hinh_anh }}">
+                <img src="{{ $figure->hinh_anh }}" onerror="errorImg(event)">
             </div>
         </div>
 
@@ -55,6 +55,7 @@
                     Dài × Rộng : {{ $figure->chieu_dai }} × {{ $figure->chieu_rong }}
                 </div>
             </div>
+            <div class="material">Chất liệu : {{ $figure->chat_lieu }}</div>
             <div class="description">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt possimus nihil accusamus tempora harum. Repellendus, culpa dolor neque dicta quos, iusto est ipsam impedit soluta porro, nam possimus unde explicabo.
                 e dicta quos, iusto est ipsam impedit soluta porro, nam possi
@@ -72,6 +73,10 @@
 
 
     <script>
+        function errorImg(event){
+            event.target.src = ''
+            console.log();
+        }
         const numberproduct = document.querySelector('.numberinput');
         function minus(){
             numberproduct.value = parseInt(numberproduct.value) - 1;

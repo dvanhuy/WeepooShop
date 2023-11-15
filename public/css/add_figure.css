@@ -62,4 +62,16 @@
     border: 1px solid black;
     font-size: 1.3rem;
 }
+.right .numberinfo input{
+    width: 100px;
+}
+.right .size input{
+    width: 100px;
+    margin-top: 20px;
+}
+.right #chat_lieu{
+    margin-top: 10px;
+    width: 200px;
+    font-size: 17px;
+}
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Figure\AddFigureRequest;
 use App\Models\Figure;
 use Illuminate\Http\Request;
 
@@ -23,5 +24,25 @@ class FigureController extends Controller
     public function getFormAddFigure(Request $request)
     {
         return view('Figure.add_figure');
+    }
+
+    public function addFigure(AddFigureRequest $request)
+    {
+        $image = $request->file('hinh_anh');
+        $filename = $image->hashName();
+        $image->storeAs('uploads/', $filename);
+
+        $figure = $request->validated();
+        $figure['hinh_anh']="storage/app/uploads/".$filename;
+        $status = Figure::create($figure);
+        if ($status) {
+            return redirect()->back()->with([
+                'status' => 'Đã thêm mô hình thành công'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'status' => 'Thêm thất bại'
+        ]);
     }
 }

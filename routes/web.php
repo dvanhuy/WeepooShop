@@ -67,6 +67,7 @@ Route::group(['middleware'=>'userLogin'],function (){
         Route::group(['prefix'=> 'manage/figures'], function () {
             Route::get('', [AdminController::class,'getFiguresForm'])->name('manage.get_figures_form');
             Route::get('add', [FigureController::class,'getFormAddFigure'])->name('figures.get_form_add');
+            Route::post('add', [FigureController::class,'addFigure'])->name('figures.add_figure');
         });
         Route::group(['prefix'=> 'manage/users'], function () {
             Route::get('users', [AdminController::class,'getUsersForm'])->name('manage.get_users_form');
