@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function getFiguresForm(){
-        $figure15row = Figure::limit(10)->orderBy("updated_at","desc")->get();
+        // $figure15row = Figure::limit(10)->orderBy("updated_at","desc")->get();
+        $figure15row = Figure::paginate(15);
+        // dd($figure15row->links());
         return view("Admin.manageFigures",["figures"=> $figure15row]);
     }
     public function getUsersForm(){

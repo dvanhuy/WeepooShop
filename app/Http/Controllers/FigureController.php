@@ -78,4 +78,15 @@ class FigureController extends Controller
             'status' => 'Cập nhật thất bại'
         ]);
     }
+    public function deleteFigure(Figure $figureID){
+        $check = $figureID->delete();
+        if ($check) {
+            return redirect()->back()->with([
+                'status' => 'Đã xóa mô hình thành công'
+            ]);
+        }
+        return redirect()->back()->with([
+            'status' => 'Xóa mô hình thất bại'
+        ]);
+    }
 }

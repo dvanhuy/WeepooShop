@@ -6,9 +6,20 @@
     <title>Quản lý mô hình</title>
     <link rel="stylesheet" href="{{ asset('css/manage_page.css')}}">
 </head>
+<style>
+    .status{
+        color: red;
+        margin-bottom: 10px;
+        font-size: 20px;
+        margin-left: 5%;
+    }
+</style>
 <body>
     @include('header')
     <h1 class="page_title">Quản lý mô hình</h1>
+    @if(Session::has('status'))
+        <div class="status">{{ session('status') }}</div>
+    @endif
     <div class="header_name_search">
         <label for="order">Sắp xếp theo : </label>
         <select name="order" id="order">
@@ -55,7 +66,7 @@
                     <td >
                         <div class="action">
                             <a href="{{ route('figures.get_form_update',$figure->id) }}" class="update">Sửa</a>
-                            <a href="" class="delete">Xóa</a>
+                            <a href="{{ route('figures.delete_figure',$figure->id) }}" class="delete" onclick="return confirm('Bạn có chắn muốn xóa không?');">Xóa</a>
                         </div>
                     </td>
                     <td><p>{{ $figure->id }}</p></td>
@@ -88,7 +99,8 @@
             <a href="#">5</a>
             <a href="#">6</a>
             <a href="#">&raquo;</a>
-            </div>
+        </div>
     </div>
+    {{ $figures->links("pagination::bootstrap-4") }}
 </body>
 </html>

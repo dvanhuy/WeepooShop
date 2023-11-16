@@ -70,6 +70,7 @@ Route::group(['middleware'=>'userLogin'],function (){
             Route::post('add', [FigureController::class,'addFigure'])->name('figures.add_figure');
             Route::get('update/{figureID}', [FigureController::class,'getFormUpdateFigure'])->name('figures.get_form_update');
             Route::post('update/{figureID}', [FigureController::class,'updateFigure'])->name('figures.update_figure');
+            Route::get('delete/{figureID}', [FigureController::class,'deleteFigure'])->name('figures.delete_figure');
         });
         Route::group(['prefix'=> 'manage/users'], function () {
             Route::get('users', [AdminController::class,'getUsersForm'])->name('manage.get_users_form');
