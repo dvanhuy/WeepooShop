@@ -54,7 +54,7 @@
                 <tr>
                     <td >
                         <div class="action">
-                            <a href="" class="update">Sửa</a>
+                            <a href="{{ route('figures.get_form_update',$figure->id) }}" class="update">Sửa</a>
                             <a href="" class="delete">Xóa</a>
                         </div>
                     </td>

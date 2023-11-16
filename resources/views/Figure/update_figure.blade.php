@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm mới mô hình</title>
+    <title>Cập nhật mô hình</title>
     <link rel="stylesheet" href="{{ asset('css/add_figure.css')}}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
@@ -37,12 +37,12 @@
         <a href="">
             <div class="header_name_titlesub">
                 <i class="fa-solid fa-house"></i>
-                <span>Thêm mô hình</span> 
+                <span>Cập nhật mô hình</span> 
             </div>
         </a>
     </div>
     
-    <form action="{{ route('figures.add_figure') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('figures.update_figure',$figure->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="flex-box">
             <div class="left">
@@ -50,7 +50,11 @@
                     <div class="status">{{ session('status') }}</div>
                 @endif
                 <div class="big-img">
-                    <img id="figure_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Image_of_none.svg/1200px-Image_of_none.svg.png">
+                    @if (str_contains($figure->hinh_anh, 'http'))
+                        <img id="figure_img" src="{{ $figure->hinh_anh }}" >
+                    @else
+                        <img id="figure_img" src="{{ asset($figure->hinh_anh) }}" >
+                    @endif
                 </div>
                 <label>Tệp ảnh của bạn
                     <input type="file" name="hinh_anh" accept="image/png, image/gif, image/jpeg" onchange="loadFile(event)" />
@@ -62,23 +66,23 @@
 
             <div class="right">
                 <label for="ten">Tên mô hình (*) :
-                    <input type="text" name="ten" id="ten">
+                    <input type="text" name="ten" id="ten" value="{{ $figure->ten }}">
                 </label>
                 @error('ten')
                     <div class="error">{{ $message }}</div>
                 @enderror
                 <label for="nha_sx">Nhà sản xuất :
-                    <input type="text" name="nha_sx" id="nha_sx">
+                    <input type="text" name="nha_sx" id="nha_sx" value="{{ $figure->nha_sx }}">
                 </label>
                 @error('nha_sx')
                     <div class="error">{{ $message }}</div>
                 @enderror
                 <div class="numberinfo">
                     <label for="so_luong_da_ban">Đã bán : 
-                        <input type="text" name="so_luong_da_ban" id="so_luong_da_ban" value="0">
+                        <input type="text" name="so_luong_da_ban" id="so_luong_da_ban"  value="{{ $figure->so_luong_da_ban }}">
                     </label>
                     <label for="so_luong_hien_con">Hiện còn (*) : 
-                        <input type="text" name="so_luong_hien_con" id="so_luong_hien_con">
+                        <input type="text" name="so_luong_hien_con" id="so_luong_hien_con" value="{{ $figure->so_luong_hien_con }}">
                     </label>
                 </div>
                 @error('so_luong_da_ban')
@@ -88,7 +92,7 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
                 <label for="gia">Giá (*) :
-                        <input type="text" name="gia" id="gia">
+                        <input type="text" name="gia" id="gia" value="{{ $figure->gia }}">
                     VNĐ
                 </label>
                 @error('gia')
@@ -97,17 +101,17 @@
                 <div class="size">
                     <div class="size-title">Kích thước :</div>
                     <label for="chieu_cao">Cao : 
-                        <input type="text" name="chieu_cao" id="chieu_cao">cm
+                        <input type="text" name="chieu_cao" id="chieu_cao" value="{{ $figure->chieu_cao }}">cm
                     </label>
                     @error('chieu_cao')
                     <div class="error">{{ $message }}</div>
                     @enderror
                     <div class="area">
                         <label for="chieu_dai">Dài : 
-                            <input type="text" name="chieu_dai" id="chieu_dai">cm
+                            <input type="text" name="chieu_dai" id="chieu_dai" value="{{ $figure->chieu_dai }}">cm
                         </label>
                         <label for="chieu_rong">× Rộng : 
-                            <input type="text" name="chieu_rong" id="chieu_rong">cm
+                            <input type="text" name="chieu_rong" id="chieu_rong" value="{{ $figure->chieu_rong }}">cm
                         </label>
                     </div>
                     @error('chieu_dai')
@@ -131,13 +135,16 @@
                         <option value="Khác">Khác</option>
                     </select>
                 </label>
+                <script>
+                    document.getElementById("chat_lieu").value = "{{ $figure->chat_lieu }}"
+                </script>
                 <label for="mo_ta">Mô tả : 
                 </label>
-                <textarea spellcheck="false" type="" name="mo_ta" id="mo_ta"></textarea>
+                <textarea spellcheck="false" type="" name="mo_ta" id="mo_ta"> {{ $figure->mo_ta }}</textarea>
                 @error('mo_ta')
                     <div class="error">{{ $message }}</div>
                 @enderror
-                <button class="buttonAdd">Thêm</button>
+                <button class="buttonAdd">Cập nhật</button>
             </div>
         </div>
     </form>

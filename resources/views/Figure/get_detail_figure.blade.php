@@ -17,7 +17,7 @@
                 <span>Trang chủ</span> 
             </div>
         </a>
-        <a href="">
+        <a href="{{ route('figures.index') }}">
             <div class="header_name_titlesub">
                 <i class="fa-solid fa-house"></i>
                 <span>Danh sách sản phẩm</span> 
@@ -34,7 +34,11 @@
     <div class="flex-box">
         <div class="left">
             <div class="big-img">
-                <img src="{{ asset($figure->hinh_anh) }}" onerror="errorImg(event)" >
+                @if (str_contains($figure->hinh_anh, 'https'))
+                    <img src="{{ $figure->hinh_anh }}" >
+                @else
+                    <img src="{{ asset($figure->hinh_anh) }}" >
+                @endif
             </div>
         </div>
 
