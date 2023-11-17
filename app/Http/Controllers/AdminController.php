@@ -8,11 +8,37 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function getFiguresForm(){
+    public function getFiguresForm(Request $request){
         // $figure15row = Figure::limit(10)->orderBy("updated_at","desc")->get();
-        $figure15row = Figure::paginate(15);
-        // dd($figure15row->links());
-        return view("Admin.manageFigures",["figures"=> $figure15row]);
+        $order = 'updated_at';
+        $direc =  'desc';
+        if($request->has("order")){
+            //có tham số order -> nhấn vào nút tìm
+            if ($request->input("order") == 'priceasc'){
+                $order = 'gia';
+                $direc =  'asc';
+            } else if ($request->input("order") == "pricedesc"){
+                $order = 'gia';
+                $direc =  'desc';
+            } else {
+                $order = 'updated_at';
+                $direc =  'desc';
+            }
+            if($request->has("search-column") && $request->has("search-column-value")){
+                // có mệnh đề where
+                $figures= Figure::where($request->input("search-column"), 'like', '%'.$request->input("search-column-value").'%')
+                                ->orderBy($order,$direc)
+                                ->paginate(15);
+                return view("Admin.manageFigures",["figures"=> $figures]);
+            } else {
+                // không có mệnh đề where
+                $figures= Figure::orderBy($order,$direc)
+                                ->paginate(15);
+                return view("Admin.manageFigures",["figures"=> $figures]);
+            }
+        }
+        $figures= Figure::orderBy($order,$direc)->paginate(15);
+        return view("Admin.manageFigures",["figures"=> $figures]);
     }
     public function getUsersForm(){
 
