@@ -96,7 +96,7 @@
             </table>
         </div>
     </main>
-    <div class="footer_main">
+    <!-- <div class="footer_main">
         <div class="pagination">
             <a href="#">&laquo;</a>
             <a href="#">1</a>
@@ -107,7 +107,7 @@
             <a href="#">6</a>
             <a href="#">&raquo;</a>
         </div>
-    </div>
+    </div> -->
     {{ $figures->appends(request()->except('page'))->links('vendor.pagination.custom_pagination') }}
 </body>
 <script>
