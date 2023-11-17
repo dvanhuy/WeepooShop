@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function getFiguresForm(Request $request){
-        // $figure15row = Figure::limit(10)->orderBy("updated_at","desc")->get();
         $order = 'updated_at';
         $direc =  'desc';
         if($request->has("order")){

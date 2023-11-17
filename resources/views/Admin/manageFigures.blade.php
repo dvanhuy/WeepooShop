@@ -16,7 +16,20 @@
 </style>
 <body>
     @include('header')
-    <h1 class="page_title">Quản lý mô hình</h1>
+    <div class="header_main">
+        <a href="{{ route('get_home_page') }}">
+            <div class="header_name_title">
+                <i class="fa-solid fa-house"></i>
+                <span>Trang chủ</span>
+            </div>
+        </a>
+        <a href="">
+            <div class="header_name_titlesub">
+                <i class="fa-solid fa-house"></i>
+                <span>Quản lý mô hình</span> 
+            </div>
+        </a>
+    </div>
     @if(Session::has('status'))
         <div class="status">{{ session('status') }}</div>
     @endif
