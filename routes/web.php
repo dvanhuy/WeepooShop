@@ -59,7 +59,10 @@ Route::get('/homepage', [AuthController::class,'getHomePage'])->name('get_home_p
 
 Route::group(['middleware'=>'userLogin'],function (){
     Route::get('logout', [AuthController::class,'logout'])->name('logout');
-    Route::get('users/edit', [UserController::class,'editProfile'])->name('users.get_form_editprofile');
+    Route::group(['prefix'=> 'users'], function () {
+        Route::get('edit', [UserController::class,'getFormEditProfile'])->name('users.get_form_editprofile');
+        Route::get('change-password', [UserController::class,'getFormChangePassword'])->name('users.get_form_changepassword');
+    });
     Route::group(['prefix'=> 'cart'], function () {
         Route::get('', [CartController::class,'index'])->name('cart.index');
         Route::post('add', [CartController::class,'add'])->name('cart.add');

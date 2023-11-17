@@ -43,7 +43,12 @@
                     <div class="status">{{ session('status') }}</div>
                 @endif
                 <div class="big-img">
-                    <img id="figure_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Image_of_none.svg/1200px-Image_of_none.svg.png">
+                    @if (str_contains($user->avatar, 'http'))
+                        <img id="figure_img" src="{{ $user->avatar }}">
+                    @else
+                        <!-- <img id="figure_img" src="{{ asset($user->avatar) }}" > -->
+                        <img id="figure_img" src="{{ asset('images/avatardefault.png') }}" >
+                    @endif
                 </div>
                 <label>Tệp ảnh của bạn
                     <input type="file" name="hinh_anh" accept="image/png, image/gif, image/jpeg" onchange="loadFile(event)" />
@@ -55,18 +60,24 @@
 
             <div class="right">
                 <label for="name">Tên tài khoản (*) :
-                    <input type="text" name="name" id="name">
+                    <input type="text" name="name" id="name" value="{{ $user->name }}">
                 </label>
                 <label for="email">Email (*) :
-                    <input type="text" name="email" id="email">
+                    <input type="text" name="email" id="email" value="{{ $user->email }}">
                 </label>
+                @if (isset($user->email_verified_at))
+                <div>
+                    <label for="">Email đã xác thực vào {{$user->email_verified_at}}</label>
+                </div>
+                @else
                 <div>
                     <label for="">Email chưa được xác thực</label>
                     <button class="verifiedbutton">Xác thực</button>
                 </div>
+                @endif
 
-                <label for="phone">Số điện thoại :
-                    <input type="text" name="phone" id="phone">
+                <label for="phone">Số điện thoại : 
+                    <input type="text" name="phone" id="phone" value="{{ $user->phone }}">
                 </label>
 
                 <button class="buttonupdate">Cập nhật thông tin</button>
