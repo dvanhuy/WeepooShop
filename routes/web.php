@@ -63,6 +63,7 @@ Route::group(['middleware'=>'userLogin'],function (){
         Route::get('edit', [UserController::class,'getFormEditProfile'])->name('users.get_form_editprofile');
         Route::post('edit/{userID}', [UserController::class,'updateProfile'])->name('users.update_profile');
         Route::get('change-password', [UserController::class,'getFormChangePassword'])->name('users.get_form_changepassword');
+        Route::post('change-password/{userID}', [UserController::class,'changePassword'])->name('users.change_password');
     });
     Route::group(['prefix'=> 'cart'], function () {
         Route::get('', [CartController::class,'index'])->name('cart.index');
