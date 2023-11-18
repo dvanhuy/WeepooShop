@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh sửa thông tin cá nhân</title>
     <link rel="stylesheet" href="{{ asset('css/edit_profile.css')}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <style>
         .error{
@@ -68,13 +69,13 @@
                     <input type="text" name="email" id="email" disabled value="{{ $user->email }}">
                 </label>
                 @if (isset($user->email_verified_at))
-                <div>
+                <div class="container_verify">
                     <label for="">Email đã xác thực vào {{$user->email_verified_at}}</label>
                 </div>
                 @else
-                <div>
+                <div class="container_verify">
                     <label for="">Email chưa được xác thực</label>
-                    <button class="verifiedbutton">Xác thực</button>
+                    <span class="verifiedbutton" onclick="verify('{{ $user->id }}')">Xác thực</span>
                 </div>
                 @endif
 
@@ -97,6 +98,23 @@
         output.onload = function() {
             URL.revokeObjectURL(output.src) // free memory
         }
+    }
+    function verify(userid){
+        $.ajax({
+            url: "{{ route('users.sendmailverify') }}",
+            type: "GET",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                'id_user': userid,
+            },
+            dataType: "json",
+            success: function (data) {
+                alert(data.message)
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError);
+            }
+        });
     }
 </script>
 </html>

@@ -61,6 +61,8 @@ Route::group(['middleware'=>'userLogin'],function (){
     Route::get('logout', [AuthController::class,'logout'])->name('logout');
     Route::group(['prefix'=> 'users'], function () {
         Route::get('edit', [UserController::class,'getFormEditProfile'])->name('users.get_form_editprofile');
+        Route::get('sendmailverify', [UserController::class,'sendmailverify'])->name('users.sendmailverify');
+        Route::get('verify', [UserController::class,'verify'])->name('users.verify');
         Route::post('edit/{userID}', [UserController::class,'updateProfile'])->name('users.update_profile');
         Route::get('change-password', [UserController::class,'getFormChangePassword'])->name('users.get_form_changepassword');
         Route::post('change-password/{userID}', [UserController::class,'changePassword'])->name('users.change_password');

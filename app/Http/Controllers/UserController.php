@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -64,5 +65,31 @@ class UserController extends Controller
         return redirect()->back()->with([
             'status'=> 'Đổi mật khẩu thành công'
         ]);
+    }
+
+    public function sendmailverify(Request $request)
+    {
+        $id_user = $request->input('id_user');
+        $message = 'Đã gửi email';
+        $user = User::find($id_user);
+        if ($user === null) {
+            $message = "Hiện tại không tìm thấy bạn trong db";
+        }
+
+        $user->sendEmailVerificationNotification();
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+        ]);
+    }
+
+    public function verify(){
+        $user = Auth::user();
+        if ($user->email_verified_at){
+            return view('User.verify',['status' => 'Tài khoản đã được xác thực trước đây']);
+        }
+        $user->email_verified_at = now();
+        $user->save();
+        return view('User.verify',['status' => 'Xác thực tài khoản thành công']);
     }
 }
