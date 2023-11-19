@@ -107,13 +107,14 @@
                     },
                     dataType: "json",
                     success: function (data) {
-                        if (data.success) {
-                            // Xử lý thành công
-                            alert(data.message);
-                        } else {
-                            // Xử lý thất bại
-                            alert(data.message);
-                        }
+                        // if (data.success) {
+                        //     // Xử lý thành công
+                        //     alert(data.message);
+                        // } else {
+                        //     // Xử lý thất bại
+                        //     alert(data.message);
+                        // }
+                        alert(data.message);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         console.log(thrownError);
