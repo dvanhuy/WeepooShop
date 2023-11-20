@@ -11,7 +11,7 @@
 <body>
     @include('header')
     <div class="header_main">
-        <a href="">
+        <a href="{{ route('get_home_page') }}">
             <div class="header_name_title">
                 <i class="fa-solid fa-house"></i>
                 <span>Trang chủ</span> 
@@ -50,9 +50,9 @@
                     <div class="name_item">{{ $cart->ten }}</div>
                 </div>
             </a>
-            <div class="price" data-price="{{$cart->gia}}">{{ number_format($cart->gia, 0, ',', '.') }} VNĐ</div>
-            <div class="number">{{ $cart->so_luong }}</div>
-            <div>{{ number_format($cart->gia*$cart->so_luong, 0, ',', '.') }} VNĐ</div>
+            <div >{{ number_format($cart->gia, 0, ',', '.') }} VNĐ</div>
+            <div >{{ $cart->so_luong }}</div>
+            <div class="price" data-price="{{$cart->gia*$cart->so_luong}}">{{ number_format($cart->gia*$cart->so_luong, 0, ',', '.') }} VNĐ</div>
             <div class="button_delete" onclick="removeCart('{{ $cart->cart_id }}')">Xóa</div>
         </div> 
         @endforeach
@@ -61,7 +61,7 @@
         <div class="totalprice">
         0 VNĐ
         </div>
-        <button>Mua hàng</button>
+        <button onclick="pay()">Mua hàng</button>
     </div>
 
     <script>
@@ -100,8 +100,7 @@
             result = 0
             for (const item of item_figure) {
                 const price = item.getElementsByClassName("price")[0].dataset.price;
-                const number = item.getElementsByClassName("number")[0].innerHTML;
-                result+= parseInt(price)*parseInt(number);
+                result+= parseInt(price);
             }
             const formatter = new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
@@ -109,6 +108,9 @@
             });
             const formattedNumber = formatter.format(result);
             totalprice.innerHTML = formattedNumber.slice(0,-2)+" VNĐ";
+        }
+        function pay(){
+            alert("Chức năng thanh toán chưa hỗ trợ")
         }
     </script>
 </body>

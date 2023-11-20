@@ -11,7 +11,7 @@
 <body>
     @include('header')
     <div class="header_main">
-        <a href="">
+        <a href="{{ route('get_home_page') }}">
             <div class="header_name_title">
                 <i class="fa-solid fa-house"></i>
                 <span>Trang chủ</span> 
