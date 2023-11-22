@@ -71,7 +71,7 @@
         <div class="item_figure box_gird {{ $cart->deleted_at ? 'disable_container' : ''  }} {{ $cart->so_luong_hien_con < $cart->so_luong ? 'requireUpdate' : '' }}" id="{{ $cart->cart_id }}">
             <a style="color: black; text-decoration: none;" href="{{ route('figures.showdetail',$cart->id_figure) }}">
                 <div class="info_item">
-                    <input type="checkbox" value="" data-price="{{$cart->gia*$cart->so_luong}}" name="" id="" onchange="calcprice(event)">
+                    <input type="checkbox" value="{{ $cart->cart_id }}" data-price="{{$cart->gia*$cart->so_luong}}" onchange="calcprice(event)">
                     <div class="img_item">
                         <img src="{{ $cart->hinh_anh }}" >
                     </div>
@@ -147,7 +147,23 @@
             total_price_element.innerHTML = formattedNumber.slice(0,-2)+" VNĐ";
         }
         function pay(){
-            alert("Chức năng thanh toán chưa hỗ trợ")
+            const choose_carts = document.querySelectorAll(".info_item input[type='checkbox']")
+            const newUrl = new URL("{{ route('cart.get_form_pay') }}")
+            let cartIDs = []
+            let rediectToPay = false;
+            for (const choose_cart of choose_carts) {
+                if (choose_cart.checked) {
+                    cartIDs.push(choose_cart.value)
+                    rediectToPay=true
+                }
+            }
+            if (rediectToPay) {
+                newUrl.searchParams.set("cartIDs",cartIDs.join(','));
+                window.location.href=newUrl.href
+            }
+            else{
+                alert("Chưa chọn mô hình")
+            }
         }
 
         function changeNumberCart(cart_id,number){

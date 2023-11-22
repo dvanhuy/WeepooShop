@@ -80,4 +80,26 @@ class CartController extends Controller
             'so_luong_con' => $figure->so_luong_hien_con,
         ]);
     }
+
+    public function getFormPay(Request $request){
+        $cartIDs = explode(',', $request->input('cartIDs'));
+        $carts = Cart::whereIn('id',  $cartIDs)->get();
+        return view('Cart.pay',['carts'=>$carts]);
+    }
+
+    public function pay(Request $request){
+        $cartIDs = explode(',', $request->input('cartIDs'));
+        $carts = Cart::whereIn('id',  $cartIDs)->get();
+        $carts->each(function ($cart) {
+            $figure = Figure::find($cart->id_figure);
+            $figure->so_luong_hien_con -= $cart->so_luong;
+            $figure->so_luong_da_ban += $cart->so_luong;
+            $figure->save();
+            $cart->delete();
+        });
+        return response()->json([
+            'success' => true,
+            "message" => "Thanh toán thành công"
+        ]);
+    }
 }

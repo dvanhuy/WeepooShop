@@ -72,6 +72,8 @@ Route::group(['middleware'=>'userLogin'],function (){
         Route::post('add', [CartController::class,'add'])->name('cart.add');
         Route::get('delete/{cart_id}', [CartController::class,'delete'])->name('cart.delete');
         Route::get('update', [CartController::class,'update'])->name('cart.update');
+        Route::get('pay', [CartController::class,'getFormPay'])->name('cart.get_form_pay');
+        Route::post('pay', [CartController::class,'pay'])->name('cart.pay');
     });
     Route::group(['middleware'=>'isAdminRole'],function (){
         Route::group(['prefix'=> 'manage/figures'], function () {
