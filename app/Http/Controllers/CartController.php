@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Cart\AddCardRequest;
 use App\Models\Cart;
+use App\Models\Figure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,6 +56,28 @@ class CartController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Xóa thất bại'
+        ]);
+    }
+
+    public function update(Request $request){
+        $cart = Cart::find($request->input('cartID'));
+        $figure = Figure::find($cart->id_figure);
+        $update_so_luong = $cart->so_luong + (int)$request->input('updateNumber');
+        if ($figure->so_luong_hien_con >= $update_so_luong ){
+            $cart->so_luong = $update_so_luong;
+            $cart->save();
+            return response()->json([
+                'success' => true,
+                'message' => "cập nhật thành công",
+            ]);
+        }
+        //hết hàng và cập nhật lại thành số hàng còn
+        $cart->so_luong = $figure->so_luong_hien_con;
+        $cart->save();
+        return response()->json([
+            'success' => false,
+            'message' => "Chỉ còn ".$figure->so_luong_hien_con." mô hình trong kho",
+            'so_luong_con' => $figure->so_luong_hien_con,
         ]);
     }
 }

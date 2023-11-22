@@ -71,6 +71,7 @@ Route::group(['middleware'=>'userLogin'],function (){
         Route::get('', [CartController::class,'index'])->name('cart.index');
         Route::post('add', [CartController::class,'add'])->name('cart.add');
         Route::get('delete/{cart_id}', [CartController::class,'delete'])->name('cart.delete');
+        Route::get('update', [CartController::class,'update'])->name('cart.update');
     });
     Route::group(['middleware'=>'isAdminRole'],function (){
         Route::group(['prefix'=> 'manage/figures'], function () {
