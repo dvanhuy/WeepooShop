@@ -34,7 +34,7 @@
     <div class="flex-box">
         <div class="left">
             <div class="big-img">
-                @if (str_contains($figure->hinh_anh, 'https'))
+                @if (str_contains($figure->hinh_anh, 'http'))
                     <img src="{{ $figure->hinh_anh }}" >
                 @else
                     <img src="{{ asset($figure->hinh_anh) }}" >

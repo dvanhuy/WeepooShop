@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Cart\AddCardRequest;
+use App\Models\Bill;
+use App\Models\BillDetail;
 use App\Models\Cart;
 use App\Models\Figure;
 use Illuminate\Http\Request;
@@ -90,13 +92,35 @@ class CartController extends Controller
     public function pay(Request $request){
         $cartIDs = explode(',', $request->input('cartIDs'));
         $carts = Cart::whereIn('id',  $cartIDs)->get();
-        $carts->each(function ($cart) {
+
+        // Thêm vào bảng hóa đơn
+        $bill = Bill::create([
+            'thoi_gian_thanh_toan' => now(),
+            'trang_thai' => 'Đang giao',
+            'id_user' => $carts[0]->id_user,
+            'hinh_anh'=>'images/emptyFigure.webp'
+        ]);
+        // $carts->each(function ($cart) {
+        //     // Cập nhật bảng figure
+        // });
+        $tongtien = 0;
+        foreach ($carts as $cart) {
+            // Cập nhật bảng figure
             $figure = Figure::find($cart->id_figure);
             $figure->so_luong_hien_con -= $cart->so_luong;
             $figure->so_luong_da_ban += $cart->so_luong;
             $figure->save();
+            $tongtien += $cart->so_luong*$figure->gia;
+            BillDetail::create([
+                'id_bill' => $bill->id,
+                'id_figure' => $cart->id_figure,
+                'so_luong' => $cart->so_luong,
+            ]);
+            
             $cart->delete();
-        });
+        }
+        $bill->tong_tien = $tongtien;
+        $bill->save();
         return response()->json([
             'success' => true,
             "message" => "Thanh toán thành công"

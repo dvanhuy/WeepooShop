@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\FacebookController;
 use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FigureController;
 use App\Http\Controllers\UserController;
@@ -75,6 +76,10 @@ Route::group(['middleware'=>'userLogin'],function (){
         Route::get('pay', [CartController::class,'getFormPay'])->name('cart.get_form_pay');
         Route::post('pay', [CartController::class,'pay'])->name('cart.pay');
     });
+    Route::group(['prefix'=> 'bill'], function () {
+        Route::get('', [BillController::class,'index'])->name('bill.index');
+        Route::get('/{billID}', [BillController::class,'getdetailform'])->name('bill.detail');
+    });
     Route::group(['middleware'=>'isAdminRole'],function (){
         Route::group(['prefix'=> 'manage/figures'], function () {
             Route::get('', [AdminController::class,'getFiguresForm'])->name('manage.get_figures_form');
@@ -92,6 +97,3 @@ Route::group(['middleware'=>'userLogin'],function (){
         });
     });
 });
-
-
-
