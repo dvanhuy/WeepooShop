@@ -134,7 +134,7 @@
                 const checkbox = figure.querySelector(".info_item input[type='checkbox']")
                 const pricexnumber = figure.querySelector(".price")
                 if (checkbox.checked){
-                    totalmoney += pricexnumber.dataset.total
+                    totalmoney += parseInt(pricexnumber.dataset.total)
                 }
             }
             const total_price_element = document.getElementsByClassName("totalprice")[0]
