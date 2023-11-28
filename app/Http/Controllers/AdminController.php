@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class AdminController extends Controller
 {
     public function getFiguresForm(Request $request){
-        $figures= Figure::getQuery();
+        $figures= Figure::getQuery()->where('deleted_at', null);
 
         if($request->has("search-column") && $request->has("search-column-value")){
             // có mệnh đề where
